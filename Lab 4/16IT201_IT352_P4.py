@@ -10,6 +10,7 @@ class TeeFile(object):
         for fp in self.files:
             fp.write(txt)
 
+
 def DES(block,round_keys):
     global f
     block=intial_permutation(block)
