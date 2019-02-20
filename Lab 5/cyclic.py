@@ -21,7 +21,7 @@ def main():
             c=c+1
             plain=temp
             temp=exp_modulo(temp,e,N)
-        print(c)
+        #print(c)
         plaintext=plaintext+chr(plain)
     
     print("plaintext is: ",plaintext)
