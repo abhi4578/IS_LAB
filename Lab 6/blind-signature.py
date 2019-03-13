@@ -93,7 +93,7 @@ def blind_signature():
         #verifying at reciever side
 
         M_verify=pow(M_actual_sign,e,N)
-        M_verify='{0:0{1}b}'.format(M_verify,block_size*8),
+        M_verify='{0:0{1}b}'.format(M_verify,block_size*8)
         
         for k in  range(0,len(M_verify),8):
             Message=Message + chr(int(M_verify[k:k+8],2))
