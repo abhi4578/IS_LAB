@@ -83,11 +83,11 @@ def blind_signature():
             M=M+hex(ord(plaintext[i+j])).split('x')[1]
         M_hex=M
         M=int(M,16)
-        M_dash=M*pow(r,e)%N
+        M_dash=(M*pow(r,e))%N
 
         M_signature=pow(M_dash,d,N)
 
-        M_actual_sign=(M_signature*r_inverse%N)
+        M_actual_sign=(M_signature*r_inverse)%N
         print("block ",i//block_size,"signature is ",M_actual_sign)
 
         #verifying at reciever side
