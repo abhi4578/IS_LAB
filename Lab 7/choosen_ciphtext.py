@@ -1,3 +1,10 @@
+import sys
+class TeeFile(object):
+    def __init__(self,*files):
+        self.files = files
+    def write(self,txt):
+        for fp in self.files:
+            fp.write(txt)
 
 def modInverse(a, m) : 
     m0 = m 
@@ -35,22 +42,24 @@ def modInverse(a, m) :
   
 
 def choosen_ciphertext_attack():
+
+    f=open("Program-7.output.txt","w")
     plaintext=input("Enter the plaintext\n")
-    f=open("Program-7.output.txt","a")
+    print("Plaintext is :",plaintext,file=f)
     p=int(input("Enter the p\n"))
     print("p:",p,file=f)
     q=int(input("Enter the q\n"))
     print("q:",q,file=f)
     N=p*q
-    print("N:",N)
+    print("N:",N,file=TeeFile(sys.__stdout__,f))
     e=int(input("Enter the public key e\n" ))
     print("e:",e,file=f)
     phi=(p-1)*(q-1)
     d=modInverse(e,phi)
-    #print("private key d is",d)
+    
     if d==-1:
-        print("No private key d present ,exiting")
-        print("No private key d present ,exiting",file=f)
+        print("No private key d present ,exiting",file=TeeFile(sys.__stdout__,f))
+        
         return -1
 
     #determining block size
@@ -69,8 +78,9 @@ def choosen_ciphertext_attack():
     
     r=int(input("Enter the value of r\n"))
     print("r:",r,file=f)
+    print("private key d is",d,file=TeeFile(sys.__stdout__,f))
     r_inverse=modInverse(r,N)
-    #print("r_inverse is ",r_inverse)
+    print("r_inverse is ",r_inverse,file=TeeFile(sys.__stdout__,f))
     count=1
     while r_inverse==-1 and count!=3:
         r=int(input("enter the value of r\n"))
@@ -78,35 +88,35 @@ def choosen_ciphertext_attack():
         count=count+1
 
     if r_inverse==-1 and count==3:
-        print("exiting")
+        print("exiting",file=TeeFile(sys.__stdout__,f))
         return -1
     M=''
     Message=''
     plaintext_f=''
-    print("No.of blocks ",len(plaintext)/block_size)
-    print("No.of blocks ",len(plaintext)/block_size,file=f)
+    print("No.of blocks ",len(plaintext)/block_size,file=TeeFile(sys.__stdout__,f))
+    
 
-    print("Blocksize in bits is ",block_size*8)
-    print("Blocksize in bits is ",block_size*8,file=f)
+    print("Blocksize in bits is ",block_size*8,file=TeeFile(sys.__stdout__,f))
+    
     for i in range(0,len(plaintext),block_size):
         M=''
         for j in range(block_size):
             M=M+hex(ord(plaintext[i+j])).split('x')[1]
-        print("\n------------------------------------\n")
-        print("block ",i//block_size)
-        print("block ",i//block_size,file=f)
+        print("\n------------------------------------",file=TeeFile(sys.__stdout__,f))
+        print("block ",i//block_size,file=TeeFile(sys.__stdout__,f))
+        
         M_hex=M
         M=int(M,16)
         
         C=pow(M,e,N)
-        print("ciphertext in decimal:",C)
+        print("ciphertext in decimal:",C,file=TeeFile(sys.__stdout__,f))
         C_dash=(C*pow(r,e))%N
 
-        print("Intermediate in decimal(Cr^e mod N)(C'):",C_dash)
+        print("Intermediate in decimal(Cr^e mod N)(C'):",C_dash,file=TeeFile(sys.__stdout__,f))
         
 
         C_decrypted=pow(C_dash,d,N)
-        print(" Resulting plaintext after decryption of C'(C'^d mod N):",C_decrypted)
+        print(" Resulting plaintext after decryption of C'(C'^d mod N):",C_decrypted,file=TeeFile(sys.__stdout__,f))
 
         plain=(C_decrypted*r_inverse)%N
   
@@ -116,12 +126,12 @@ def choosen_ciphertext_attack():
             plain_block=plain_block+chr(int(plain[p:p+2],16))
             plaintext_f=plaintext_f+chr(int(plain[p:p+2],16))
 
-        print("plaintext  got after attack : ",plain_block)
+        print("plaintext  got after attack : ",plain_block,file=TeeFile(sys.__stdout__,f))
        
 
 
-    print("Plaintext got after choosen cipher text attack:",plaintext_f)
-    
+    print("Plaintext got after choosen cipher text attack:",plaintext_f,file=TeeFile(sys.__stdout__,f))
+    print("\n",file=TeeFile(sys.__stdout__,f))
 if __name__ == "__main__":
     choosen_ciphertext_attack()
         
