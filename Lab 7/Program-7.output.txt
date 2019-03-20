@@ -1,33 +1,75 @@
-p: 13
-q: 17
-e: 19
-r: 19
-No.of blocks  5.0
+plaintext: {p
+p: 349
+q: 353
+e: 7
+r: 61909
+private key d is 34999
+r_inverse is  120618
+No.of blocks  1.0
+Blocksize in bits is  16
+block  0
+Intermediate in decimal(Mr^e mod N)(M'): 3825
+ Intermediate in decimal(M^d mod N)(M''): 15754
+plain text in decimal  25444
+plain text   of block:  cd
+plaintext after attack: cd
+plaintext: C413
+p: 349
+q: 353
+e: 11
+No private key d present ,exiting
+plaintext: 63F5
+p: 349
+q: 353
+e: 3
+No private key d present ,exiting
+plaintext: >b
+p: 349
+q: 353
+e: 7
+r: 3
+private key d is 34999
+r_inverse is  41066
+No.of blocks  1.0
+Blocksize in bits is  16
+block  0
+Intermediate in decimal(Mr^e mod N)(M'): 61639
+ Intermediate in decimal(M^d mod N)(M''): 109414
+plain text in decimal  77537
+plain text   of block:  .á
+plaintext after attack: .á
+plaintext: <b
+p: 349
+q: 353
+e: 7
+r: 3
+private key d is 34999
+r_inverse is  41066
+No.of blocks  1.0
+Blocksize in bits is  16
+block  0
+Intermediate in decimal(Mr^e mod N)(M'): 50668
+ Intermediate in decimal(M^d mod N)(M''): 15204
+plain text in decimal  5068
+plain text   of block:  Ì
+plaintext after attack: Ì
+plaintext: M.
+p: 173
+q: 179
+e: 7
+r: 7
+private key d is 17495
+r_inverse is  4424
+No.of blocks  2.0
 Blocksize in bits is  8
 block  0
-p: 13
-q: 17
-e: 19
-r: 23
-No.of blocks  5.0
-Blocksize in bits is  8
-block  0
-p: 13
-q: 17
-e: 23
-r: 19
-No.of blocks  5.0
-Blocksize in bits is  8
-block  0
-p: 13
-q: 17
-e: 19
-r: 23
-No.of blocks  6.0
-Blocksize in bits is  8
-block  0
+Intermediate in decimal(Mr^e mod N)(M'): 23362
+ Intermediate in decimal(M^d mod N)(M''): 16367
+plain text in decimal  6762
+plain text   of block:  j
 block  1
-block  2
-block  3
-block  4
-block  5
+Intermediate in decimal(Mr^e mod N)(M'): 10337
+ Intermediate in decimal(M^d mod N)(M''): 29812
+plain text in decimal  30802
+plain text   of block:  xR
+plaintext after attack: jxR

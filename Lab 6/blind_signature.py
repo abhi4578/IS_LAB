@@ -1,4 +1,3 @@
-
 def modInverse(a, m) : 
     m0 = m 
     y = 0
