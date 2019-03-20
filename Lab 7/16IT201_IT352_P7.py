@@ -41,25 +41,24 @@ def modInverse(a, m) :
     return x 
   
 
-def choosen_ciphertext_attack():
+def blind_signature():
 
-    f=open("Program-7.output.txt","w")
+    f=open("Program-7.output.txt","a")
     plaintext=input("Enter the plaintext\n")
-    print("Plaintext is :",plaintext,file=f)
+    print("plaintext:",plaintext,file=f)
     p=int(input("Enter the p\n"))
     print("p:",p,file=f)
     q=int(input("Enter the q\n"))
     print("q:",q,file=f)
     N=p*q
-    print("N:",N,file=TeeFile(sys.__stdout__,f))
+    print("N:",N)
     e=int(input("Enter the public key e\n" ))
     print("e:",e,file=f)
     phi=(p-1)*(q-1)
     d=modInverse(e,phi)
-    
     if d==-1:
-        print("No private key d present ,exiting",file=TeeFile(sys.__stdout__,f))
-        
+        print("No private key d present ,exiting")
+        print("No private key d present ,exiting",file=f)
         return -1
 
     #determining block size
@@ -78,8 +77,9 @@ def choosen_ciphertext_attack():
     
     r=int(input("Enter the value of r\n"))
     print("r:",r,file=f)
-    print("private key d is",d,file=TeeFile(sys.__stdout__,f))
     r_inverse=modInverse(r,N)
+    print("private key d is",d,file=TeeFile(sys.__stdout__,f))
+
     print("r_inverse is ",r_inverse,file=TeeFile(sys.__stdout__,f))
     count=1
     while r_inverse==-1 and count!=3:
@@ -92,49 +92,60 @@ def choosen_ciphertext_attack():
         return -1
     M=''
     Message=''
-    plaintext_f=''
+    Signature=''
     print("No.of blocks ",len(plaintext)/block_size,file=TeeFile(sys.__stdout__,f))
-    
+   
 
     print("Blocksize in bits is ",block_size*8,file=TeeFile(sys.__stdout__,f))
-    
+  
     for i in range(0,len(plaintext),block_size):
         M=''
         for j in range(block_size):
             M=M+hex(ord(plaintext[i+j])).split('x')[1]
-        print("\n------------------------------------",file=TeeFile(sys.__stdout__,f))
+        print("\n------------------------------------\n")
         print("block ",i//block_size,file=TeeFile(sys.__stdout__,f))
-        
+ 
         M_hex=M
         M=int(M,16)
-        
-        C=pow(M,e,N)
-        print("ciphertext in decimal:",C,file=TeeFile(sys.__stdout__,f))
-        
-        C_dash=(C*pow(r,e))%N
-
-        print("Intermediate in decimal(Cr^e mod N)(C'):",C_dash,file=TeeFile(sys.__stdout__,f))
+        print("Message in decimal:",M)
+        M_dash=(M*pow(r,e))%N
+        print("Intermediate in decimal(Mr^e mod N)(M'):",M_dash,file=TeeFile(sys.__stdout__,f))
         
 
-        C_decrypted=pow(C_dash,d,N)
-        print(" Resulting plaintext after decryption of C'(C'^d mod N):",C_decrypted,file=TeeFile(sys.__stdout__,f))
+        M_signature=pow(M_dash,d,N)
+        print(" Intermediate in decimal(M^d mod N)(M''):",M_signature,file=TeeFile(sys.__stdout__,f))
 
-        plain=(C_decrypted*r_inverse)%N
-  
-        plain=hex(plain).split('x')[1]
-        plain_block=''
-        for p in range(0,len(plain),2):
-            plain_block=plain_block+chr(int(plain[p:p+2],16))
-            plaintext_f=plaintext_f+chr(int(plain[p:p+2],16))
+        M_actual_sign=(M_signature*r_inverse)%N
+        #print("Blind signature in  ",M_actual_sign)
+        print("plain text in decimal ",M_actual_sign,file=TeeFile(sys.__stdout__,f))
+        M_actual_sign=hex(M_actual_sign).split('x')[1]
+        if len(M_actual_sign)%2!=0:
+            M_actual_sign='0'+M_actual_sign
 
-        print("plaintext  got after attack : ",plain_block,file=TeeFile(sys.__stdout__,f))
+        
+        Sign_block=''
+        for p in range(0,len(M_actual_sign),2):
+            Sign_block=Sign_block+chr(int(M_actual_sign[p:p+2],16))
+            Signature=Signature+chr(int(M_actual_sign[p:p+2],16))
+
+        print("plain text   of block: ",Sign_block,file=TeeFile(sys.__stdout__,f))
        
 
+    #    #verifying at reciever side
+    #     M_actual_sign=int(M_actual_sign,16)
+    #     M_verify=pow(M_actual_sign,e,N)
+    #     M_verify='{0:0{1}b}'.format(M_verify,block_size*8)
+    #     Message_block=''
+    #     for k in  range(0,len(M_verify),8):
+    #         Message_block=Message_block+chr(int(M_verify[k:k+8],2))
+    #         Message=Message + chr(int(M_verify[k:k+8],2))
+    #     print("Reconstructed message:",Message_block)
+    #     print("\n------------------------------------\n") 
 
-    print("Plaintext got after choosen cipher text attack:",plaintext_f,file=TeeFile(sys.__stdout__,f))
-    print("\n",file=TeeFile(sys.__stdout__,f))
+    print("plaintext after attack:",Signature,file=TeeFile(sys.__stdout__,f))
+    #print("Fully Reconstructed message :",Message)
 if __name__ == "__main__":
-    choosen_ciphertext_attack()
+    blind_signature()
         
 
         
