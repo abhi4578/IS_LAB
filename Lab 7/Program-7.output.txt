@@ -1,0 +1,33 @@
+p: 13
+q: 17
+e: 19
+r: 19
+No.of blocks  5.0
+Blocksize in bits is  8
+block  0
+p: 13
+q: 17
+e: 19
+r: 23
+No.of blocks  5.0
+Blocksize in bits is  8
+block  0
+p: 13
+q: 17
+e: 23
+r: 19
+No.of blocks  5.0
+Blocksize in bits is  8
+block  0
+p: 13
+q: 17
+e: 19
+r: 23
+No.of blocks  6.0
+Blocksize in bits is  8
+block  0
+block  1
+block  2
+block  3
+block  4
+block  5

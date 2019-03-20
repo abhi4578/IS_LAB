@@ -1,0 +1,38 @@
+p: 349
+q: 353
+e: 13
+r: 13
+No.of blocks  2.0
+Blocksize in bits is  16
+block  0
+block  1
+p: 349
+q: 353
+e: 3
+No private key d present ,exiting
+p: 173
+q: 179
+e: 7
+r: 7
+No.of blocks  3.0
+Blocksize in bits is  8
+block  0
+block  1
+block  2
+p: 349
+q: 353
+e: 7
+r: 7
+No.of blocks  2.0
+Blocksize in bits is  16
+block  0
+block  1
+p: 349
+q: 353
+e: 5
+r: 3
+No.of blocks  3.0
+Blocksize in bits is  16
+block  0
+block  1
+block  2
