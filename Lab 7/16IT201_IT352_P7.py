@@ -1,3 +1,11 @@
+import sys
+class TeeFile(object):
+    def __init__(self,*files):
+        self.files = files
+    def write(self,txt):
+        for fp in self.files:
+            fp.write(txt)
+
 def modInverse(a, m) : 
     m0 = m 
     y = 0
@@ -34,8 +42,10 @@ def modInverse(a, m) :
   
 
 def blind_signature():
-    plaintext=input("Enter the plaintext\n")
+
     f=open("Program-7.output.txt","a")
+    plaintext=input("Enter the plaintext\n")
+    print("plaintext:",plaintext,file=f)
     p=int(input("Enter the p\n"))
     print("p:",p,file=f)
     q=int(input("Enter the q\n"))
@@ -46,7 +56,6 @@ def blind_signature():
     print("e:",e,file=f)
     phi=(p-1)*(q-1)
     d=modInverse(e,phi)
-    #print("private key d is",d)
     if d==-1:
         print("No private key d present ,exiting")
         print("No private key d present ,exiting",file=f)
@@ -69,7 +78,9 @@ def blind_signature():
     r=int(input("Enter the value of r\n"))
     print("r:",r,file=f)
     r_inverse=modInverse(r,N)
-    #print("r_inverse is ",r_inverse)
+    print("private key d is",d,file=TeeFile(sys.__stdout__,f))
+
+    print("r_inverse is ",r_inverse,file=TeeFile(sys.__stdout__,f))
     count=1
     while r_inverse==-1 and count!=3:
         r=int(input("enter the value of r\n"))
@@ -77,36 +88,36 @@ def blind_signature():
         count=count+1
 
     if r_inverse==-1 and count==3:
-        print("exiting")
+        print("exiting",file=TeeFile(sys.__stdout__,f))
         return -1
     M=''
     Message=''
     Signature=''
-    print("No.of blocks ",len(plaintext)/block_size)
-    print("No.of blocks ",len(plaintext)/block_size,file=f)
+    print("No.of blocks ",len(plaintext)/block_size,file=TeeFile(sys.__stdout__,f))
+   
 
-    print("Blocksize in bits is ",block_size*8)
-    print("Blocksize in bits is ",block_size*8,file=f)
+    print("Blocksize in bits is ",block_size*8,file=TeeFile(sys.__stdout__,f))
+  
     for i in range(0,len(plaintext),block_size):
         M=''
         for j in range(block_size):
             M=M+hex(ord(plaintext[i+j])).split('x')[1]
         print("\n------------------------------------\n")
-        print("block ",i//block_size)
-        print("block ",i//block_size,file=f)
+        print("block ",i//block_size,file=TeeFile(sys.__stdout__,f))
+ 
         M_hex=M
         M=int(M,16)
         print("Message in decimal:",M)
         M_dash=(M*pow(r,e))%N
-        print("Intermediate in decimal(Mr^e mod N)(M'):",M_dash)
+        print("Intermediate in decimal(Mr^e mod N)(M'):",M_dash,file=TeeFile(sys.__stdout__,f))
         
 
         M_signature=pow(M_dash,d,N)
-        print(" Intermediate in decimal(M^d mod N)(M''):",M_signature)
+        print(" Intermediate in decimal(M^d mod N)(M''):",M_signature,file=TeeFile(sys.__stdout__,f))
 
         M_actual_sign=(M_signature*r_inverse)%N
         #print("Blind signature in  ",M_actual_sign)
-        print("Signature in decimal ",M_actual_sign)
+        print("plain text in decimal ",M_actual_sign,file=TeeFile(sys.__stdout__,f))
         M_actual_sign=hex(M_actual_sign).split('x')[1]
         if len(M_actual_sign)%2!=0:
             M_actual_sign='0'+M_actual_sign
@@ -117,22 +128,22 @@ def blind_signature():
             Sign_block=Sign_block+chr(int(M_actual_sign[p:p+2],16))
             Signature=Signature+chr(int(M_actual_sign[p:p+2],16))
 
-        print("Blind signature  of block: ",Sign_block)
+        print("plain text   of block: ",Sign_block,file=TeeFile(sys.__stdout__,f))
        
 
-        #verifying at reciever side
-        M_actual_sign=int(M_actual_sign,16)
-        M_verify=pow(M_actual_sign,e,N)
-        M_verify='{0:0{1}b}'.format(M_verify,block_size*8)
-        Message_block=''
-        for k in  range(0,len(M_verify),8):
-            Message_block=Message_block+chr(int(M_verify[k:k+8],2))
-            Message=Message + chr(int(M_verify[k:k+8],2))
-        print("Reconstructed message:",Message_block)
-        print("\n------------------------------------\n")
+    #    #verifying at reciever side
+    #     M_actual_sign=int(M_actual_sign,16)
+    #     M_verify=pow(M_actual_sign,e,N)
+    #     M_verify='{0:0{1}b}'.format(M_verify,block_size*8)
+    #     Message_block=''
+    #     for k in  range(0,len(M_verify),8):
+    #         Message_block=Message_block+chr(int(M_verify[k:k+8],2))
+    #         Message=Message + chr(int(M_verify[k:k+8],2))
+    #     print("Reconstructed message:",Message_block)
+    #     print("\n------------------------------------\n") 
 
-    print("Blind Signature of text:",Signature)
-    print("Fully Reconstructed message :",Message)
+    print("plaintext after attack:",Signature,file=TeeFile(sys.__stdout__,f))
+    #print("Fully Reconstructed message :",Message)
 if __name__ == "__main__":
     blind_signature()
         
