@@ -8,10 +8,9 @@ def exp_modulo(a,b,N):
         b=b//2
     return result%N
 
-def main():
+def main(ciphertext):
     #
     f=open("Program5-Output-CyclicProgram5.txt",'w')
-    ciphertext=int(input("Enter the ciphertext \n"))
     N=int(input("Enter N\n"))
     e=int(input("Enter public key e\n"))
     print("Ciphertext:",ciphertext,"N:",N,"public key e:",e,"\n",file=f)
