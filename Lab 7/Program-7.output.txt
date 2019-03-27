@@ -1,33 +1,20 @@
-p: 13
-q: 17
-e: 19
-r: 19
-No.of blocks  5.0
-Blocksize in bits is  8
+Plaintext is : BA
+p: 349
+q: 353
+N: 123197
+e: 7
+r: 3
+private key d is 34999
+r_inverse is  41066
+No.of blocks  1.0
+Blocksize in bits is  16
+
+------------------------------------
 block  0
-p: 13
-q: 17
-e: 19
-r: 23
-No.of blocks  5.0
-Blocksize in bits is  8
-block  0
-p: 13
-q: 17
-e: 23
-r: 19
-No.of blocks  5.0
-Blocksize in bits is  8
-block  0
-p: 13
-q: 17
-e: 19
-r: 23
-No.of blocks  6.0
-Blocksize in bits is  8
-block  0
-block  1
-block  2
-block  3
-block  4
-block  5
+ciphertext in decimal: 25240
+Intermediate in decimal(Cr^e mod N)(C'): 7624
+ Resulting plaintext after decryption of C'(C'^d mod N): 50883
+plaintext  got after attack :  BA
+Plaintext got after choosen cipher text attack: BA
+
+

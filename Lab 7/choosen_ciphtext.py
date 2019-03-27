@@ -110,6 +110,11 @@ def choosen_ciphertext_attack():
         
         C=pow(M,e,N)
         print("ciphertext in decimal:",C,file=TeeFile(sys.__stdout__,f))
+        M_actual_sign=hex(C).split('x')[1]
+        Sign_block=''
+        for p in range(0,len(M_actual_sign),2):
+            Sign_block=Sign_block+chr(int(M_actual_sign[p:p+2],16))
+        print("cipher in acii ",Sign_block)
         C_dash=(C*pow(r,e))%N
 
         print("Intermediate in decimal(Cr^e mod N)(C'):",C_dash,file=TeeFile(sys.__stdout__,f))
