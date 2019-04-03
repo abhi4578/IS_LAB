@@ -5,10 +5,10 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import *
 
 dst_ip = input("Enter ip address / website url \n")
-src_port=RandShort()
-dst_port=53
+src_port=2500
+dst_port=80
 conf.verb=0
-
+choice=int(input("1)Tcp connect scanning 2) SYN scanning\n" ))
 #print(str(type(tcp_connect_scan_resp)))
 print("Checking whether  dstination host is alive....")
 ping = sr1(IP(dst = dst_ip)/ICMP(),timeout=5)
@@ -18,8 +18,9 @@ if(str(type(ping))=="<class 'NoneType'>"):
     sys.exit(1)
 
 print("Destination Host is alive!!")
-
+seq_k=0
 def TCP_CONNECT(dst_port):
+    global seq_k
     SYN=IP(dst=dst_ip)/TCP(sport=src_port,dport=dst_port,flags="S")
     print(" Sending SYN message to ",dst_ip)
     print("TCP header contents")
@@ -38,14 +39,19 @@ def TCP_CONNECT(dst_port):
         print("Content of packet recieved from  ",dst_ip)
         tcp_connect_scan_resp.getlayer(TCP).display()
         if(tcp_connect_scan_resp.getlayer(TCP).flags == 0x12):
-            
             scan_result="Port "+str(dst_port)+" is Open"
-            print("Sending ACK  packet to ",dst_ip,"with content:")
-            A=IP(dst=dst_ip)/TCP(sport=src_port,dport=dst_port,flags="A")
-            A.getlayer(TCP).display()
-            send_ack = sr(A,timeout=10)
+
+            if choice==1:
+                print("Sending ACK  packet to ",dst_ip,"with content:")
+                seq_k+=1
+                A=IP(dst=dst_ip)/TCP(sport=src_port,dport=dst_port,ack=1,seq=seq_k,window=229,flags="A")
+                
+                A.getlayer(TCP).display()
+                send_ack = sr(A,timeout=10)
+
             print("Reseting the connection to ",dst_ip,"with content")
-            R=IP(dst=dst_ip)/TCP(sport=src_port,dport=dst_port,flags="R")
+            seq_k+=1
+            R=IP(dst=dst_ip)/TCP(sport=src_port,dport=dst_port,seq=seq_k,flags="R")
             R.getlayer(TCP).display()
             send(R)
             

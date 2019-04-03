@@ -12,7 +12,7 @@ conf.verb=0
 
 print("Checking whether host is alive....")
 ping = sr1(IP(dst = dst_ip)/ICMP(),timeout=5)
-
+    
 if(str(type(ping))=="<class 'NoneType'>"):
     print("host is dead, cannot conduct port scaninng")
     print("Exiting...")
