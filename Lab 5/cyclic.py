@@ -13,7 +13,7 @@ def main(ciphertext):
     f=open("Program5-Output-CyclicProgram5.txt",'w')
     N=int(input("Enter N\n"))
     e=int(input("Enter public key e\n"))
-    print("Ciphertext:",ciphertext,"N:",N,"public key e:",e,"\n",file=f)
+    print("Ciphertext:",ciphertext,"N:",N,"public key e:",e,"\n")
     plaintext=0
     temp=ciphertext
     c=0
@@ -23,7 +23,7 @@ def main(ciphertext):
         
         temp=exp_modulo(temp,e,N)
         #print("cyclic No:",c,"intermediate cipher:",temp)
-        print("cyclic No:",c,"intermediate cipher:",temp,file=f)
+        print("cyclic No:",c,"intermediate cipher:",temp)
         #print(c)
     
     
