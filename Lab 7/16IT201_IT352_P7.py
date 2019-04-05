@@ -109,7 +109,7 @@ def blind_signature():
         M=int(M,16)
         print("Message in decimal:",M)
         M_dash=(M*pow(r,e))%N
-        print("Intermediate in decimal(Mr^e mod N)(M'):",M_dash,file=TeeFile(sys.__stdout__,f))
+        print("Intermediate in decimal(Mr^e m•••••••od N)(M'):",M_dash,file=TeeFile(sys.__stdout__,f))
         
 
         M_signature=pow(M_dash,d,N)
